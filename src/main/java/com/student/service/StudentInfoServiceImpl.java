@@ -1,6 +1,7 @@
 package com.student.service;
 
 import com.student.domain.StudentInfo;
+import com.student.exception.StudentNotFoundException;
 import com.student.repository.StudentInfoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,8 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     }
 
     public Mono<StudentInfo> retrieveStudentInfo(final String studentId) {
-        Mono<StudentInfo> studentInfoMono = studentInfoRepository.findById(studentId);
-        return studentInfoMono;
+        return studentInfoRepository.findById(studentId)
+                .switchIfEmpty(Mono.error(new StudentNotFoundException("Student Not Found for "+ studentId)));
     }
 
     @Override
@@ -32,8 +33,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 
     @Override
     public Mono<StudentInfo> updateStudentInfo(final StudentInfo studentInfo, final String studentId) {
-        Mono<StudentInfo> studentInfoMono = studentInfoRepository.findById(studentId);
-        return studentInfoMono.map(student -> studentInfo)
+        return studentInfoRepository.findById(studentId)
+                .switchIfEmpty(Mono.error(new StudentNotFoundException("Student Not Found for "+ studentId)))
+                .map(student -> studentInfo)
                 .flatMap(studentInfoRepository::save);
     }
 
