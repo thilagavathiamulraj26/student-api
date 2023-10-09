@@ -37,4 +37,9 @@ public class StudentInfoController {
     public Mono<StudentInfo> updateStudentInfo(@RequestBody @Valid final StudentInfo studentInfo, @PathVariable final String studentId) {
         return studentInfoService.updateStudentInfo(studentInfo, studentId);
     }
+
+    @DeleteMapping(value = "/students/{studentId}")
+    public Mono<Void> deleteStudentInfo(@PathVariable final String studentId) {
+        return studentInfoService.deleteStudentInfo(studentId);
+    }
 }

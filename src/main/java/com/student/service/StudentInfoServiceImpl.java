@@ -36,4 +36,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         return studentInfoMono.map(student -> studentInfo)
                 .flatMap(studentInfoRepository::save);
     }
+
+    @Override
+    public Mono<Void> deleteStudentInfo(final String studentId) {
+        return studentInfoRepository.deleteById(studentId);
+    }
 }
