@@ -31,6 +31,7 @@ dependencies {
 	testImplementation 'io.projectreactor:reactor-test'
 
 	implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.9.3'
+	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
 }
 
 tasks.named('test') {
