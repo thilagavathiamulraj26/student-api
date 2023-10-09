@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      database: school
+      port: 27017
