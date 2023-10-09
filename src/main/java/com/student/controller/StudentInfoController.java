@@ -32,4 +32,9 @@ public class StudentInfoController {
     public Flux<StudentInfo> retrieveAllStudentInfo() {
         return studentInfoService.retrieveAllStudentInfo();
     }
+
+    @PutMapping(value = "/students/{studentId}")
+    public Mono<StudentInfo> updateStudentInfo(@RequestBody @Valid final StudentInfo studentInfo, @PathVariable final String studentId) {
+        return studentInfoService.updateStudentInfo(studentInfo, studentId);
+    }
 }

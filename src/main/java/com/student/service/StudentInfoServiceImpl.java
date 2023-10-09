@@ -29,4 +29,11 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public Flux<StudentInfo> retrieveAllStudentInfo() {
         return studentInfoRepository.findAll();
     }
+
+    @Override
+    public Mono<StudentInfo> updateStudentInfo(final StudentInfo studentInfo, final String studentId) {
+        Mono<StudentInfo> studentInfoMono = studentInfoRepository.findById(studentId);
+        return studentInfoMono.map(student -> studentInfo)
+                .flatMap(studentInfoRepository::save);
+    }
 }

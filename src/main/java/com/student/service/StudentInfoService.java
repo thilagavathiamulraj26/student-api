@@ -11,4 +11,6 @@ public interface StudentInfoService {
     Mono<StudentInfo> retrieveStudentInfo(final String studentId);
 
     Flux<StudentInfo> retrieveAllStudentInfo();
+
+    Mono<StudentInfo> updateStudentInfo(final StudentInfo studentInfo, final String studentId);
 }
