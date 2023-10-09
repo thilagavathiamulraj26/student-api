@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,6 +20,7 @@ public class StudentInfoController {
     private final StudentInfoService studentInfoService;
 
     @PostMapping(value = "/students")
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<StudentInfo> addStudentInfo(@RequestBody @Valid final StudentInfo studentInfo) {
         return studentInfoService.addStudentInfo(studentInfo);
     }
@@ -39,6 +41,7 @@ public class StudentInfoController {
     }
 
     @DeleteMapping(value = "/students/{studentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> deleteStudentInfo(@PathVariable final String studentId) {
         return studentInfoService.deleteStudentInfo(studentId);
     }
