@@ -35,7 +35,10 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public Mono<StudentInfo> updateStudentInfo(final StudentInfo studentInfo, final String studentId) {
         return studentInfoRepository.findById(studentId)
                 .switchIfEmpty(Mono.error(new StudentNotFoundException("Student Not Found for "+ studentId)))
-                .map(student -> studentInfo)
+                .map(student -> {
+                    studentInfo.setStudentId(studentId);
+                    return studentInfo;
+                })
                 .flatMap(studentInfoRepository::save);
     }
 
